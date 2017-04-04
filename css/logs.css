@@ -1,0 +1,105 @@
+/***************
+ * Logs - keywords highlight when inside .log file*
+ ***************/
+
+.number {
+    color: #905;
+}
+
+.keyword {
+    color: #6B7FB2;
+}
+
+.green {
+    color: #93D046;
+}
+
+.orange {
+    color: #F8C636;
+}
+
+.error {
+    color: #f00;
+    font-size: 13px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.small {
+    font-size: 11px;
+}
+
+.warning:first-child, .error:first-child {
+    margin-left: -7px;
+}
+
+.highlight {
+    background-color: rgba(177, 156, 217, 0.3)!important;
+
+}
+
+/***************
+ * Tables styling *
+ ***************/
+
+a {
+    text-decoration: initial;
+    font-size: 15px;
+}
+
+.logtable {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.logtable td {
+    word-wrap: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+}
+
+.logtable, .logtable th, .logtable td {
+    border: 1px solid #ccc;
+}
+
+.log-label {
+    background: #999;
+    color: #fff;
+    padding: .325em;
+    border-radius: .325em;
+    display: inline-block;
+}
+.log-label.stack-trace {
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn-empty-container {
+    display: inline-block;
+    position: relative;
+    right: 150px;
+    text-align: left;   
+    pointer-events: none;
+    float: left;
+}
+
+.emptyAction {
+    display: inline-block;
+    position: relative;
+    right: 150px;
+    float: left;
+    cursor: pointer;
+}

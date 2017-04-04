@@ -1,0 +1,76 @@
+/***************
+ * Breadcrumb *
+ ***************/
+h1 {
+    font-size: 26px;
+}
+
+/***************
+ * Upload files form and buttons*
+ ***************/
+#dragDropUploadArea {
+    border: 2px dashed #ccc;
+    color: #707070;
+    font-size: 13px;
+    padding: 6px;
+    text-align: center;
+    width: 440px;
+    height: 34px;
+    cursor: pointer;
+    float: left;
+    margin-right: 10px;
+}
+#uploadForm {
+    margin-bottom: 15px;
+}
+
+/***************
+ * Webdav - buttons *
+ ***************/
+
+.btn-container {
+    width: 30%;
+    float: right;   
+}
+
+.emptyAction, .deleteAction, .unzipAction  {
+    padding-left: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.btn-empty-container {
+    display: inline-block;
+    position: relative;
+    right: 150px;
+    text-align: left;   
+    pointer-events: none;
+    float: left;
+}
+
+/***************
+ * Webdav - Table styling *
+ ***************/
+
+.logtable {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.logtable td {
+    word-wrap: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+}
+
+.logtable, .logtable th, .logtable td {
+    border: 1px solid #ccc;
+}
+
+.loglabel {
+    background: #999;
+    color: #fff;
+    padding: .325em;
+    border-radius: .325em;
+}

@@ -1,0 +1,70 @@
+<div id="about">
+    <header>
+        <h1 i18n-content="about_title"></h1>
+    </header>
+    <div class="content">
+        <div id="product-header">
+            <img id="product-logo" src="../../images/icon/icon-128.png" alt="">
+            <div class="product-title">
+                <h2>DWithEase</h2>
+                <div i18n-content="about_product_version" class="product-version">
+                    <!--directive: i18n-substitute $1:<b>{{version}}</b>-->
+                    <!--directive: i18n-substitute $2:</b>-->
+                </div>
+            </div>
+        </div>
+        <div i18n-content="about_product_description" class="product-description"></div>
+        <div id="help-container">
+            <a i18n-content="about_buttons_info" href="http://forkpoint.com/products/dwithease/" target="_blank" class="btn-default" role="button"></a>
+            <a i18n-content="about_buttons_issues" href="https://chrome.google.com/webstore/detail/demandware-with-ease/ffhabonelknmejmdnekedmijlhebpcio/support" target="_blank" class="btn-default"></a>
+            <a i18n-content="about_buttons_changelog" ng-click="enableChangelogModal()" target="_blank" class="btn-default"></a>
+        </div>
+        <div id="timesaved-container">
+            <span i18n-content="about_timesaved" ng-show="timeSaved !== undefined">
+                <!--directive: i18n-substitute $1:{{timeSaved}}-->
+                <!--directive: i18n-substitute $2:</b>--></span>
+        </div>
+        <div i18n-content="about_tos" id="product-tos">
+            <!--directive: i18n-substitute $1:<a class="link" href="http://creativecommons.org/licenses/by-nd/3.0/">Creative Commons Attribution-NoDerivs 3.0 Unported License</a>-->
+        </div>
+        <div id="product-container">
+            <div i18n-content="about_author" class="product-name"></div>
+            <div class="company-logo">
+                <a href="http://forkpoint.com" target="_blank">
+                    <img src="../../images/fp-logo-small.png" alt="forkpoint logo">
+                </a>
+            </div>
+        </div>
+
+        <div id="changelogModal" ng-class="(changelogModal === true)?'changelogModal':'hidden'">
+            <div>
+                <div id="changelog">
+                    <div class="close-button" ng-click="closeModal()"></div>
+                    <span i18n-content="about_changelog"></span>
+                    <div i18n-content="about_product_version" class="product-version">
+                        <!--directive: i18n-substitute $1:<b>1.6.0</b>-->
+                    </div>
+                    <ul class="changes-list">
+                        <li class="change">Added new menu in the options page for dynamic context menu configuration.</li>
+                        <li class="change">Added new option - Trim Logs</li>
+                        <li class="change">Added new option - Beautify Logs</li>
+                        <li class="change">Added empty button in .log files</li>
+                        <li class="change">Added delete button in Impex folders</li>
+                        <li class="change">Added unzip button for zip files</li>
+                        <li class="change">Transformed breadcrumb in webvdav to be clickable for easier navigation</li>
+                        <li class="change">Added direct file upload area and create new folder button in the following places in webdav - /Cartridges, /Impex, /Securitylogs, /Temp, /Static, /Library
+                    </ul>
+                     <div class="next-product-version">
+                        Next version features
+                    </div>
+                    <ul class="next-changes-list">
+                        <li class="next-change">Automatic upload of meta configurations.</li>
+                        <li class="next-change">Live edit of files in webdav.</li>
+                        <li class="next-change">Login automatically in XChange and Documentation.</li>
+                        <li class="next-change">Partial auto update of log files.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

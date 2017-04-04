@@ -1,0 +1,149 @@
+<div id="sandboxes">
+    <header>
+        <h1 i18n-content="sandbox_title"></h1>
+    </header>
+    <div class="content">
+        <div sv-root class="sandbox-menu">
+            <div class="helpBtns">
+                <a id="importOptsBtn" ng-click="importClick()">
+                    <button i18n-content="sandbox_buttons_import"></button>
+                </a>
+                <a id="exportOptsBtn" ng-show="showExportBtn">
+                    <button i18n-content="sandbox_buttons_export"></button>
+                </a>
+
+                <button i18n-content="sandbox_buttons_newsandbox" class="newSandboxBtn" ng-click="newSandboxModal()"></button>
+            </div>
+            <div sv-part="mySandboxes" class="highlightable dragable">
+                <div class="drag-placeholder" sv-placeholder></div>
+                <li ng-repeat="sandbox in mySandboxes track by sandbox.id" sv-element>
+                    <div i18n-content="sandbox_buttons_delete" class="delete" ng-click="selectSandbox(sandbox)"></div>
+                    <div i18n-content="sandbox_buttons_edit" class="action" ng-click="editSandbox(sandbox)"></div>
+                    <div class="open">
+                        <a i18n-content="sandbox_buttons_open" ng-href="https://{{sandbox.url}}/on/demandware.store/Sites-Site/default/ViewApplication-DisplayWelcomePage" target="_blank"></a>
+                    </div>
+                    <dl sv-handle>
+                        <dt>{{sandbox.name}}</dt>
+                        <dd>
+                            <span i18n-content="sandbox_userName" class="sblabel"></span> &nbsp;
+                            <span>{{sandbox.username}}</span>
+                        </dd>
+                        <dd>
+                            <span i18n-content="sandbox_domain" class="sblabel"></span> &nbsp;
+                            <span>{{sandbox.url}}</span>
+                        </dd>
+                        <dd data-ng-repeat="alias in sandbox.aliases" ng-show="alias.url">
+                            <span i18n-content="sandbox_alias" class="sblabel"></span> &nbsp;
+                            <span>{{alias.url}}</span>
+                        </dd>
+                        <dd>
+                            <span i18n-content="sandbox_keepSession" class="sblabel"></span> &nbsp;
+                            <span ng-class="(sandbox.keepSessionActive==true)?'glyphicon glyphicon-thumbs-up':'glyphicon glyphicon-thumbs-down'"></span>
+                        </dd>
+                        <dd>
+                            <span i18n-content="sandbox_automaticLogin" class="sblabel"></span> &nbsp;
+                            <span ng-class="(sandbox.automaticLogin==true)?'glyphicon glyphicon-thumbs-up':'glyphicon glyphicon-thumbs-down'"></span>
+                        </dd>
+                    </dl>
+                    <div class="select-site" ng-show="sandbox.sites.length > 0">
+                        <label i18n-content="sandbox_defaultsite" data-tooltip="Specifies a site to be selected upon log-in, to disable this function, leave blank" class="site-label" for="selectSite"></label>
+                        <select ng-change="updateSites(sandbox.defaultSite, option.isDefault, sandbox.id)" ng-init="sandbox.defaultSite" ng-model="sandbox.defaultSite">
+                            <option ng-repeat="site in sandbox.sites" ng-value="site.id">{{site.id}}</option>
+                        </select>
+                    </div>
+
+                </li>
+            </div>
+        </div>
+        <div id="deleteSandbox" ng-class="(deletesandboxModal === true)?'deleteModal':'hidden'">
+            <div>
+                <span i18n-content="sandbox_buttons_delete_dialog"> 
+                <!--directive: i18n-substitute $1:<b>{{ selectedSandbox.name }}-->
+                <!--directive: i18n-substitute $2:</b>-->
+                </span>
+                <div class="close-button" ng-click="closeModal()"></div>
+                <button i18n-content="sandbox_buttons_delete_confirm" class="btn-left" ng-click="deleteSandbox(selectedSandbox)"></button>
+                <button i18n-content="sandbox_buttons_delete_cancel" ng-click="closeModal()"></button>
+            </div>
+        </div>
+        <div id="importSandbox" ng-class="(importSettingsModal === true)?'importModal':'hidden'">
+            <div>
+                <h1 i18n-content="sandbox_importsettings"></h1>
+                <input type="file" id="settingsFile" />
+                <input type="checkbox" class="overwrite" name="overwrite" ng-model="overwrite">
+                <span i18n-content="sandbox_buttons_import_overwrite" class="overwrite-text"></span>
+                <div class="close-button" ng-click="closeModal()"></div>
+                <button i18n-content="sandbox_buttons_import" id="importSandboxes" class="btn-left" ng-click="importSettings()"></button>
+                <button i18n-content="sandbox_buttons_delete_cancel" ng-click="closeModal()"></button>
+            </div>
+        </div>
+        <div id="new-sandbox" ng-class="(sandboxModal === true)?'newSandboxModal':'hidden'">
+            <div>
+                <h1 i18n-content="sandbox_form_sbinfo"></h1>
+                <form name="sandboxForm" ng-click="window.location.assign('#close')" novalidate validate-submit="save()">
+                    <div class="form-group" ng-class="{'has-error': validate.sandboxForm.needsAttention(sandboxForm.name)}">
+                        <div class="shorttip" data-tooltip="Sandbox Name">
+                            <input class="form-control" name="name" type="text" placeholder="Sandbox Name (e.g. dev01)" required ng-model="sbInfo.name" maxlength="38" />
+                        </div>
+                        <span i18n-content="sandbox_errors_required" class="help-block" ng-show="sandboxForm.name.$error.required"></span>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': validate.sandboxForm.needsAttention(sandboxForm.username)}">
+                        <div class="shorttip" data-tooltip="Username">
+                            <input class="form-control" name="username" type="text" placeholder="Username" ng-model="sbInfo.username" />
+                        </div>
+                        <span i18n-content="sandbox_errors_optional" class="help-block" ng-show="sandboxForm.username.$error.required"></span>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': validate.sandboxForm.needsAttention(sandboxForm.password)}">
+                        <div class="shorttip" data-tooltip="Password">
+                            <input class="form-control" name="password" type="password" placeholder="Password" ng-model="sbInfo.password" />
+                        </div>
+                        <span i18n-content="sandbox_errors_optional" class="help-block" ng-show="sandboxForm.password.$error.required"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="shorttip" data-tooltip="Storefront Password">
+                            <input class="form-control" name="storefrontpswd" type="password" placeholder="Storefront Password" ng-model="sbInfo.storefrontpswd" />
+                        </div>
+                        <span i18n-content="sandbox_errors_optional" class="help-block" ng-show="sandboxForm.password.$error.required"></span>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': validate.sandboxForm.needsAttention(sandboxForm.url)}">
+                        <div class="shorttip" data-tooltip="Domain">
+                            <input class="form-control" name="url" type="text" placeholder="Domain (e.g. dev01-mycompany.demandware.net)" ng-pattern="/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/" ng-model="sbInfo.url" required />
+                        </div>
+                        <span i18n-content="sandbox_errors_required" class="help-block" ng-show="sandboxForm.url.$error.required"></span>
+                        <span i18n-content="sandbox_errors_required" class="help-block" ng-show="sandboxForm.url.$error.pattern"></span>
+                        <span class="help-block" ng-show="sameSandbox">{{sandboxError}}</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="shorttip" data-tooltip="Aliases">
+                            <div data-ng-repeat="alias in aliases">
+                                <input class="form-control-alias" type="text" ng-model="alias.url" name="" placeholder="Alias">
+                                <span class="remove" ng-click="removeAlias($index)">X</span>
+                            </div>
+                        </div>
+                        <button type="button" i18n-content="sandbox_buttons_add_alias" class="addfields" ng-click="addNewAlias()"></button>
+                    </div>
+
+                    <div class="checkboxes">
+                        <div ng-class="{'has-error': validate.sandboxForm.needsAttention(sandboxForm.keepSessionActive)}">
+                            <label data-tooltip="This will auto login and keep your session active after the 15 min period in BM">
+                                <input name="keepSessionActive" type="checkbox" ng-model="sbInfo.keepSessionActive" />
+                                <span i18n-content="sandbox_keepSession"></span>
+                            </label>
+                        </div>
+                        <div ng-show="(sandboxForm.username.$valid && sbInfo.username) && (sandboxForm.password.$valid && sbInfo.password)" ng-class="{'has-error': validate.sandboxForm.needsAttention(sandboxForm.automaticLogin)}">
+                            <label data-tooltip="This will automatically log-in Business Manager whenever the login screen pops up">
+                                <input name="automaticLogin" type="checkbox" ng-model="sbInfo.automaticLogin" />
+                                <span i18n-content="sandbox_features_automaticlogin"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button i18n-content="sandbox_buttons_save" type="submit" class="btn btn-primary pull-right" value="Save" title="Save">
+                        </button>
+                        <div class="close-button" ng-click="closeModal()"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

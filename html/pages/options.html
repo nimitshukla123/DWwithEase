@@ -1,0 +1,28 @@
+<div id="options">
+    <header>
+        <h1 i18n-content="general_title"></h1>
+    </header>
+    <div class="content">
+        <div class="generalSettings">
+            <label>
+                <input type="checkbox" ng-model="settingsContainer.showNotifications">
+                <span i18n-content="general_notifications"></span>
+            </label>
+            <label>
+                <input type="checkbox" ng-model="settingsContainer.scrollLogToBottom">
+                <span i18n-content="general_scrolllogtobottom"></span>
+            </label>
+            <label>
+                <input type="checkbox" ng-model="settingsContainer.trimLogs">
+                <span i18n-content="general_trimlogs"></span>
+            </label>
+            <select ng-model="settingsContainer.trimLogErrors" >
+                <option ng-repeat="numberOfErrors in trimLogErrors" ng-selected="{{numberOfErrors==settingsContainer.trimLogErrors}}" value="{{numberOfErrors}}">{{numberOfErrors}}</option>
+            </select>
+            <label i18n-content="general_beautifylogs"></label>
+            <select ng-model="settingsContainer.beautifyLogsOptions" >
+                <option ng-repeat="option in beautifyLogsOptions" ng-selected="{{option==settingsContainer.beautifyLogsOptions}}" value="{{option}}">{{option}}</option>
+            </select>
+        </div>
+    </div>
+</div>

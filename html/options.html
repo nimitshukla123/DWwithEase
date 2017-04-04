@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="dweOptions" ng-controller="OptionsController" lang="en" ng-csp>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Demandware With Ease</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/chrome-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/angular-csp.css">
+</head>
+
+<body class="chrome-bootstrap">
+    <div class="frame">
+        <div class="navigation">
+            <h1>
+                <span class="extension-name">DWithEase</span>
+            </h1>
+            <ul id="navigation" class="menu">
+                <li ng-class="{selected: $route.current.activetab == 'sandboxes'}">
+                    <a i18n-content="categories_sandboxes" href="#sandboxes"></a>
+                </li>
+                <li ng-class="{selected: $route.current.activetab == 'options'}">
+                    <a i18n-content="categories_options" href="#options"></a>
+                </li>
+                <li ng-class="{selected: $route.current.activetab == 'menu'}">
+                    <a i18n-content="categories_menu" href="#menu"></a>
+                </li>
+                <li ng-class="{selected: $route.current.activetab == 'about'}">
+                    <a i18n-content="categories_about" href="#about"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="mainview view">
+            <div ng-view></div>
+        </div>
+    </div>
+
+    <script src="../js/libs/angular.js"></script>
+    <script src="../js/libs/angular-route.js"></script>
+    <script src="../js/options.js"></script>
+  
+
+</body>
+
+</html>

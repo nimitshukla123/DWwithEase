@@ -1,0 +1,58 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+    "manifest_version": 2,
+    "name": "__MSG_appName__",
+    "description": "__MSG_appDescription__",
+    "short_name": "__MSG_appShortName__",
+    "version": "1.6.1",
+    "default_locale": "en",
+    "icons": {
+        "16": "images/icon/icon-16.png",
+        "128": "images/icon/icon-128.png"
+    },
+    "browser_action": {
+        "default_title": "Demandware with Ease Extended",
+        "default_icon": {
+            "19": "images/icon/icon-19.png",
+            "38": "images/icon/icon-38.png"
+        },
+        "default_popup": "html/popup.html"
+    },
+    "background": {
+        "scripts": ["js/background.js"]
+    },
+    "content_scripts": [{
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+        ],
+        "exclude_matches": [],
+        "js": [
+            "js/libs/moment.min.js",
+            "js/libs/jquery-3.1.1.js",
+            "js/libs/jquery.tablesorter.min.js",
+            "js/content.js"
+        ],
+        "run_at": "document_end",
+        "all_frames": false
+    }],
+
+    "options_page": "html/options.html",
+    "devtools_page": "html/devtools.html",
+    "permissions": [
+        "http://*/*",
+        "https://*/*",
+        "contextMenus",
+        "storage",
+        "notifications",
+        "clipboardRead",
+        "clipboardWrite",
+        "tabs",
+		"webRequest",
+		"webRequestBlocking",
+        "<all_urls>"
+    ],
+    "web_accessible_resources": ["js/*", "html/*", "css/*", "images/*"],
+    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+}

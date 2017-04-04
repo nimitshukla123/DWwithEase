@@ -1,0 +1,92 @@
+<div id="menu">
+    <header>
+        <h1 i18n-content="menu_title"></h1>
+    </header>
+    <div class="content">
+
+        <div class="description">Rearange position with drag and drop, or add new item to the conext menu.</div>
+
+        <div class="contextMenuSettings">
+            <div class="menuList highlightable">
+                <!-- Use directive ng-sortable -->
+                <h1>Active Menu</h1>
+
+                <ul class="list-group" ng-sortable="activeMenuConfig">
+                  <li class="list-group-item" ng-repeat="item in activeMenuList.items track by item.itemId">
+                      <dl>
+                        <dd>
+                            <span class="menuName">Menu Name</span> &nbsp;
+                            <span>{{item.menuName}}</span>
+                        </dd>
+                        <dd>
+                            <span class="menuUrl">Menu Url</span> &nbsp;
+                            <span>{{item.menuUrl}}</span>
+                        </dd>
+                    </dl>
+
+                    <span ng-if="!item.default" class="action" ng-click="editMenuItem(item)">Edit</span>
+                    <span ng-if="!item.default" class="delete" ng-click="removeMenuItemModal(item)">Delete</span>
+                </li>
+            </ul>
+        </div>
+        <div class="unasignedList highlightable">
+            <h1>Inactive Menu</h1>
+
+            <ul class="list-group" ng-sortable="inactiveMenuConfig">
+                <li class="list-group-item" ng-repeat="item in inactiveMenuList.items track by item.itemId">
+                   <dl>
+                    <dd>
+                        <span class="menuName">Menu Name</span> &nbsp;
+                        <span>{{item.menuName}}</span>
+                    </dd>
+                    <dd>
+                        <span class="menuUrl">Menu Url</span> &nbsp;
+                        <span>{{item.menuUrl}}</span>
+                    </dd>
+                </dl>
+                <span ng-if="!item.default" class="action" ng-click="editMenuItem(item)">Edit</span>
+                <span ng-if="!item.default" class="delete" ng-click="removeMenuItemModal(item)">Delete</span>
+            </li>
+        </ul>
+        <button ng-click=newContextMenuModal();>Add new</button>
+    </div>
+
+    <div id="deleteContextMenu" ng-class="(deleteContextMenuModal === true)?'deleteModal':'hidden'">
+        <div>
+           <span> 
+               Are you sure you want to delete <b>{{selectedMenu.menuName}}</b> ?
+            </span>
+            <div class="close-button" ng-click="closeModal()"></div>
+            <button class="btn-left" ng-click="removeMenuItem(selectedMenu)">Delete</button>
+            <button ng-click="closeModal()">Cancel</button>
+        </div>
+    </div>
+    <div id="newContextMenu" ng-class="(contextMenuModal === true)?'newContextMenuModal':'hidden'">
+        <div>
+            <h1>Menu item info</h1>
+            <form name="contextMenuForm" ng-click="window.location.assign('#close')" novalidate validate-submit="saveContextMenus()">
+                <div class="form-group" ng-class="{'has-error': validate.contextMenuForm.needsAttention(contextMenuForm.name)}">
+                    <div class="shorttip" data-tooltip="Context Menu Name">
+                        <input class="form-control" name="name" type="text" placeholder="Name (e.g. Impex)" required ng-model="cmInfo.menuName"/>
+                    </div>
+                    <span class="help-block" ng-show="contextMenuForm.name.$error.required">Required</span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': validate.contextMenuForm.needsAttention(contextMenuForm.url)}">
+                    <div class="shorttip" data-tooltip="Context Menu Url">
+                        <input class="form-control" name="url" type="text" placeholder="Url (e.g. /on/demandware.servlet/webdav/Sites/Impex/)" required ng-model="cmInfo.menuUrl"/>
+                    </div>
+                    <span class="help-block" ng-show="contextMenuForm.name.$error.required">Required</span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary pull-right" value="Save" title="Save">Save</button>
+                    <div class="close-button" ng-click="closeModal()"></div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>
+</div>
+</div>

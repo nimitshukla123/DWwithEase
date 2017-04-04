@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="popupOptions" ng-controller="PopupController" ng-csp lang="en">
+
+<head>
+    <title>Popup</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/css/bootstrap.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/chrome-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/angular-csp.css">
+    <link rel="stylesheet" type="text/css" href="../css/popup.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script src="../js/analytics.js"></script>
+</head>
+
+<body>
+    <div class="topBar">
+        <a id="docs-btn" href="https://documentation.demandware.com/DOC2/index.jsp" target="_blank" class="dw-docs">DOCS</a>
+        <a id="xchange-btn" href="https://xchange.demandware.com" target="_blank" class="dw-xchange">XChange</a>
+        <a href="#" ng-click="openOptions()" class="options"><i class="glyphicon glyphicon-cog"></i></a>    
+        <a i18n-content="popup_buttons_new" href="#" ng-click="addSandbox()"></a>
+        <div class="forkpoint-logo">
+             <a href="http://forkpoint.com" target="_blank"><img src="../images/fp-logo-medium.jpg" alt="ForkPoint"></a>
+        </div>
+    </div>
+    
+    <div id="content">
+        <button i18n-content="popup_buttons_add" id="new-sandbox" ng-show="newSandbox" class="btn btn-info" ng-click="addSandbox()"></button>
+        <ul ng-model="mySandboxes">
+            <li ng-repeat="sandbox in mySandboxes">
+                <div class="btn-group" dropdown>
+                    <a ng-href="https://{{sandbox.url}}/on/demandware.store/Sites-Site/default/ViewApplication-DisplayWelcomePage" class="sandbox-name-btn btn btn-default" target="_blank">{{sandbox.name ? sandbox.name : sandbox.url}}</a>
+                    <button type="button" class="btn btn-danger" dropdown-toggle>
+                        <span class="caret"></span>
+                        <span class="sr-only"></span>
+                    </button>
+                  
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+                        <li ng-repeat="menu in activeContextMenus" role="menuitem">
+                            <a ng-href="https://{{sandbox.url}}{{menu.menuUrl}}" class="{{menu.popupClass}} dropdown-btn" target="_blank">{{menu.menuName}}</a>
+                        </li>
+                    </ul>
+                    <button type="button" class="edit-right" tooltip="Edit">
+                        <a ng-click="editSbOptions(sandbox)" class="glyphicon glyphicon-pencil" target="_blank"></a>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script src="../js/libs/angular.js"></script>
+    <script src="../js/libs/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script src="../js/popup.js"></script>
+</body>
+
+</html>
